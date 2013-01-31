@@ -93,6 +93,8 @@ To disable Fast mode for a given `Fraction` object:
 
 The object now has a value of 1/3.
 
+Fast mode also disables error checking for method parameters that accept `Fraction` objects.
+
 Reference
 ---------
 
@@ -131,6 +133,8 @@ The parameters work in exactly the same way as the constructor, `SomeFraction :=
 Enables or disables Fast mode and returns the fraction.
 
 In Fast mode, fractions are not reduced to their simplest form unless explicitly reduced using `SomeFraction := SomeFraction.Reduce()`, as opposed to the default behavior, which is to always have the fractions in their simplest form.
+
+Additionally, in Fast mode methods that expect `Fraction` objects as parameters will not check those parameters to make sure they are valid `Fraction` objects.
 
 When `Flag` is truthy, Fast mode is enabled. When it is falsy, Fast mode is disabled.
 

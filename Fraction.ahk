@@ -28,7 +28,7 @@ class Fraction
         this.Set(Numerator,Denominator)
     }
 
-    Set(Numerator,Denominator = "")
+    Set(Numerator = 0,Denominator = "")
     {
         If (Denominator = "")
         {
@@ -78,25 +78,47 @@ class Fraction
     {
         If Flag ;enable fast mode
         {
-            If !this.HasKey("Fast")
+            If !this.HasKey("Fast") ;fast mode disabled
             {
-                StubReduce := this.StubReduce
+                ;swap stub methods for real ones
+                Value := this.StubReduce
                 this.StubReduce := this.Reduce
-                this.Reduce := StubReduce
+                this.Reduce := Value
+                Value := this.StubCheckFraction
+                this.StubCheckFraction := this.CheckFraction
+                this.CheckFraction := Value
+
                 this.Fast := True
             }
         }
         Else ;disable fast mode
         {
-            If this.HasKey("Fast")
+            If this.HasKey("Fast") ;fast mode enabled
             {
-                Reduce := this.StubReduce
+                ;swap real methods for stubs
+                Value := this.StubReduce
                 this.StubReduce := this.Reduce
-                this.Reduce := Reduce
+                this.Reduce := Value
+                Value := this.StubCheckFraction
+                this.StubCheckFraction := this.CheckFraction
+                this.CheckFraction := Value
+
                 this.Remove("Fast")
+                this.Reduce()
             }
         }
         Return, this
+    }
+
+    CheckFraction(Value)
+    {
+        If !(Value.HasKey("Numerator") && Value.HasKey("Denominator"))
+            throw Exception("Invalid fraction: " . Value,-2)
+    }
+
+    StubCheckFraction(Value)
+    {
+        
     }
 
     StubReduce()
@@ -135,11 +157,13 @@ class Fraction
 
     Equal(Value)
     {
+        this.CheckFraction(Value)
         Return, (this.Numerator * Value.Denominator) = (Value.Numerator * this.Denominator)
     }
 
     Less(Value)
     {
+        this.CheckFraction(Value)
         If (this.Denominator < 0) ^ (Value.Denominator < 0) ;difference has negative denominator
             Return, (this.Numerator * Value.Denominator) > (Value.Numerator * this.Denominator)
         Else
@@ -148,6 +172,7 @@ class Fraction
 
     LessOrEqual(Value)
     {
+        this.CheckFraction(Value)
         If (this.Denominator < 0) ^ (Value.Denominator < 0) ;difference has negative denominator
             Return, (this.Numerator * Value.Denominator) >= (Value.Numerator * this.Denominator)
         Else
@@ -156,6 +181,7 @@ class Fraction
 
     Greater(Value)
     {
+        this.CheckFraction(Value)
         If (this.Denominator < 0) ^ (Value.Denominator < 0) ;difference has negative denominator
             Return, (this.Numerator * Value.Denominator) < (Value.Numerator * this.Denominator)
         Else
@@ -164,6 +190,7 @@ class Fraction
 
     GreaterOrEqual(Value)
     {
+        this.CheckFraction(Value)
         If (this.Denominator < 0) ^ (Value.Denominator < 0) ;difference has negative denominator
             Return, (this.Numerator * Value.Denominator) <= (Value.Numerator * this.Denominator)
         Else
@@ -188,6 +215,7 @@ class Fraction
 
     Add(Value)
     {
+        this.CheckFraction(Value)
         this.Numerator := (this.Numerator * Value.Denominator) + (Value.Numerator * this.Denominator)
         this.Denominator *= Value.Denominator
         Return, this.Reduce()
@@ -195,6 +223,7 @@ class Fraction
 
     Subtract(Value)
     {
+        this.CheckFraction(Value)
         this.Numerator := (this.Numerator * Value.Denominator) - (Value.Numerator * this.Denominator)
         this.Denominator *= Value.Denominator
         Return, this.Reduce()
@@ -202,6 +231,7 @@ class Fraction
 
     Multiply(Value)
     {
+        this.CheckFraction(Value)
         this.Numerator *= Value.Numerator
         this.Denominator *= Value.Denominator
         Return, this.Reduce()
@@ -209,6 +239,7 @@ class Fraction
 
     Divide(Value)
     {
+        this.CheckFraction(Value)
         this.Numerator *= Value.Denominator
         this.Denominator *= Value.Numerator
         Return, this.Reduce()
@@ -216,6 +247,7 @@ class Fraction
 
     Remainder(Value)
     {
+        this.CheckFraction(Value)
         IntegerQuotient := (this.Numerator * Value.Denominator) // (this.Denominator * Value.Numerator) ;floor divide the two values
         Numerator := Value.Numerator * IntegerQuotient
         this.Numerator := (this.Numerator * Value.Denominator) - (Numerator * this.Denominator)
