@@ -102,13 +102,17 @@ In addition to the standard object methods, the following are also available:
 
 ### SomeFraction := new Fraction(Numerator = 0,Denominator = "")
 
-Creates and returns a new `Fraction` object. There are 3 forms that the constructor accepts.
+Creates and returns a new `Fraction` object.
+
+Invalid values result in an exception being thrown.
+
+There are 3 forms that the constructor accepts.
 
 First, the explicit form:
 
     SomeFraction := new Fraction(x,y)
 
-Where `x` and `y` are integer values denoting the value of the fraction's numerator and denominator, respectively.
+Where `x` and `y` are integer values denoting the value of the fraction's numerator and denominator, respectively. Additionally, `y` cannot be 0.
 
 Second, the numerical form:
 
@@ -120,13 +124,15 @@ Third, the fraction string form:
 
     SomeFraction := new Fraction(s)
 
-Where `s` is a string of the form `{optional whitespace}{integer}{optional whitespace}/{optional whitespace}{integer}{optional whitespace}` denoting the value of the numerator and denominator.
+Where `s` is a string of the form `{optional whitespace}{integer}{optional whitespace}/{optional whitespace}{integer}{optional whitespace}` denoting the value of the numerator and denominator. Additionally, the denominator cannot be 0.
 
 ### SomeFraction := SomeFraction.Set(Numerator = 0,Denominator = "")
 
 Sets the fraction's value and returns the fraction.
 
-The parameters work in exactly the same way as the constructor, `SomeFraction := new Fraction(Numerator = 0,Denominator = "")`.
+Invalid values result in an exception being thrown.
+
+This method behaves in the same way as the constructor, `SomeFraction := new Fraction(Numerator = 0,Denominator = "")`.
 
 ### SomeFraction := SomeFraction.Fast(Flag = True)
 
@@ -158,21 +164,31 @@ Returns a string of the form `x/y`, where `x` is the fraction's numerator and `y
 
 Returns a boolean value denoting whether the fraction is equal to `Value`, a `Fraction` object.
 
+Invalid values result in an exception being thrown unless Fast mode is enabled.
+
 ### BooleanValue := SomeFraction.Less(Value)
 
 Returns a boolean value denoting whether the fraction is less than `Value`, a `Fraction` object.
+
+Invalid values result in an exception being thrown unless Fast mode is enabled.
 
 ### BooleanValue := SomeFraction.LessOrEqual(Value)
 
 Returns a boolean value denoting whether the fraction is less than or equal to `Value`, a `Fraction` object.
 
+Invalid values result in an exception being thrown unless Fast mode is enabled.
+
 ### BooleanValue := SomeFraction.Greater(Value)
 
 Returns a boolean value denoting whether the fraction is greater than `Value`, a `Fraction` object.
 
+Invalid values result in an exception being thrown unless Fast mode is enabled.
+
 ### BooleanValue := SomeFraction.GreaterOrEqual(Value)
 
 Returns a boolean value denoting whether the fraction is greater than or equal to `Value`, a `Fraction` object.
+
+Invalid values result in an exception being thrown unless Fast mode is enabled.
 
 ### SignValue := SomeFraction.Sign()
 
@@ -190,11 +206,15 @@ Both the numerator and the denominator are made positive.
 
 Adds `Fraction` object `Value` to the fraction and returns the fraction.
 
+Invalid values result in an exception being thrown unless Fast mode is enabled.
+
 The fraction is modified in place.
 
 ### SomeFraction := SomeFraction.Subtract(Value)
 
 Subtracts `Fraction` object `Value` from the fraction and returns the fraction.
+
+Invalid values result in an exception being thrown unless Fast mode is enabled.
 
 The fraction is modified in place.
 
@@ -202,17 +222,23 @@ The fraction is modified in place.
 
 Multiplies the fraction with `Fraction` object `Value` and returns the fraction.
 
+Invalid values result in an exception being thrown unless Fast mode is enabled.
+
 The fraction is modified in place.
 
 ### SomeFraction := SomeFraction.Divide(Value)
 
 Divides the fraction by `Fraction` object `Value` and returns the fraction.
 
+Invalid values result in an exception being thrown unless Fast mode is enabled.
+
 The fraction is modified in place.
 
 ### SomeFraction := SomeFraction.Remainder(Value)
 
 Sets the fraction to the remainder of dividing the fraction by `Fraction` object `Value` and returns the fraction.
+
+Invalid values result in an exception being thrown unless Fast mode is enabled.
 
 The fraction is modified in place.
 
