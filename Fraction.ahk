@@ -19,8 +19,6 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-;wip: make a system to work with fractions that have bigint components
-
 class Fraction
 {
     __New(Numerator = 0,Denominator = "")
