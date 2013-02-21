@@ -66,9 +66,11 @@ If we need to keep the original object but also want the result of an operation,
 
 The object `SomeFraction` retains its value of 1/5, but the object `Quotient` has a value of (1/5) / (1/2), or 2/5.
 
-### Fast Mode
+### Fraction Reduction
 
-By default, all fractions are automatically reduced to their simplest possible forms. That is, 3/6 will become 1/2, and 9/27 will become 1/3.
+By default, all fractions are automatically reduced to their smallest possible forms. That is, 3/6 will become 1/2, and 9/27 will become 1/3.
+
+Reduction makes the denominator positive and the numerator assumes the final sign of the fraction.
 
 If this behavior is not desired, or if performance can be gained by avoiding it, disable it for a given `Fraction` object using Fast mode:
 

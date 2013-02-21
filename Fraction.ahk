@@ -140,6 +140,11 @@ class Fraction
         Value := Abs(this.GCD(this.Numerator,this.Denominator))
         this.Numerator //= Value
         this.Denominator //= Value
+        If this.Denominator < 0
+        {
+            this.Numerator := -this.Numerator
+            this.Denominator := -this.Denominator
+        }
         Return, this
     }
 

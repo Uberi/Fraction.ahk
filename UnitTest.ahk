@@ -36,7 +36,7 @@ class TestFraction
     _Create()
     {
         f := new Fraction(-3,-2)
-        Return, this.Check(f,-3,-2)
+        Return, this.Check(f,3,2)
     }
 
     _Fast()
@@ -50,13 +50,13 @@ class TestFraction
     {
         f := new Fraction(45,-9)
         t := f.Reduce()
-        Return, this.Check(t,-5,1) || this.Check(t,5,-1)
+        Return, this.Check(t,-5,1)
     }
 
     _Set()
     {
         f := new Fraction
-        Return, this.Check(f.Set(4,-7),4,-7)
+        Return, this.Check(f.Set(4,-7),-4,7)
     }
 
     _FromNumber()
@@ -68,7 +68,7 @@ class TestFraction
     _FromString()
     {
         f := new Fraction
-        Return, this.Check(f.Set("  -45  /  -7   "),-45,-7)
+        Return, this.Check(f.Set("  -45  /  -7   "),45,7)
     }
 
     _ToNumber()
@@ -80,7 +80,7 @@ class TestFraction
     _ToString()
     {
         f := new Fraction(3,-2)
-        Return, f.ToString() = "3/-2"
+        Return, f.ToString() = "-3/2"
     }
 
     _Equal()
@@ -153,14 +153,14 @@ class TestFraction
     {
         f := new Fraction(5,-3)
         t := f.Remainder(new Fraction(-3,2))
-        Return, this.Check(t,1,-6) || this.Check(t,-1,6)
+        Return, this.Check(t,-1,6)
     }
 
     _Exponentiate()
     {
         f := new Fraction(-4,-2)
         t := f.Exponentiate(3)
-        Return, this.Check(t,-8,-1) || this.Check(t,8,1)
+        Return, this.Check(t,8,1)
     }
 
     Check(Value,Numerator,Denominator)
