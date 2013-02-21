@@ -270,5 +270,6 @@ class Fraction
             this.Denominator := this.Numerator ** Value
             this.Numerator := Numerator
         }
+        Return, this.Reduce()
     }
 }

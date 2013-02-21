@@ -156,6 +156,13 @@ class TestFraction
         Return, this.Check(t,1,-6) || this.Check(t,-1,6)
     }
 
+    _Exponentiate()
+    {
+        f := new Fraction(-4,-2)
+        t := f.Exponentiate(3)
+        Return, this.Check(t,-8,-1) || this.Check(t,8,1)
+    }
+
     Check(Value,Numerator,Denominator)
     {
         Return, Value.Numerator = Numerator && Value.Denominator = Denominator
