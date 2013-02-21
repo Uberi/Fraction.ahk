@@ -238,6 +238,8 @@ class Fraction
     Divide(Value)
     {
         this.CheckFraction(Value)
+        If Value.Numerator = 0 ;division by zero
+            throw Exception("Invalid divisor: " . Value.ToString())
         this.Numerator *= Value.Denominator
         this.Denominator *= Value.Numerator
         Return, this.Reduce()
@@ -251,5 +253,22 @@ class Fraction
         this.Numerator := (this.Numerator * Value.Denominator) - (Numerator * this.Denominator)
         this.Denominator *= Value.Denominator
         Return, this.Reduce()
+    }
+
+    Exponentiate(Value)
+    {
+        If Value Is Not Integer ;ensure the exponent is a whol number
+            throw Exception("Invalid exponent: " . Value)
+        If Value >= 0 ;positive exponent
+        {
+            this.Numerator := this.Numerator ** Value
+            this.Denominator := this.Denominator ** Value
+        }
+        Else ;negative exponent
+        {
+            Numerator := this.Denominator ** Value
+            this.Denominator := this.Numerator ** Value
+            this.Numerator := Numerator
+        }
     }
 }

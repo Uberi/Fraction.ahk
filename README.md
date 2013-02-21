@@ -242,6 +242,12 @@ Invalid values result in an exception being thrown unless Fast mode is enabled.
 
 The fraction is modified in place.
 
+### SomeFraction := SomeFraction.Exponentiate(Value)
+
+Sets the fraction to the result of the fraction to the power of integer `Value` and returns the fraction.
+
+The fraction is modified in place.
+
 License
 -------
 
