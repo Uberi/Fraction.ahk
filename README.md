@@ -250,6 +250,22 @@ Sets the fraction to the result of the fraction to the power of integer `Value` 
 
 The fraction is modified in place.
 
+### SomeFraction := SomeFraction.GCD(Value)
+
+Sets the fraction to the greatest common divisor of the fraction and `Fraction` object `Value` and returns the fraction.
+
+The greatest common divisor is the largest positive number that can divide both fractions such that the result is a whole number.
+
+The fraction is modified in place.
+
+### SomeFraction := SomeFraction.LCM(Value)
+
+Sets the fraction to the least common multiple of the fraction and `Fraction` object `Value` and returns the fraction.
+
+The least common multiple is the smallest positive number that can be divided by both fractions such that the result is a whole number.
+
+The fraction is modified in place.
+
 License
 -------
 

@@ -163,6 +163,20 @@ class TestFraction
         Return, this.Check(t,8,1)
     }
 
+    _GCD()
+    {
+        f := new Fraction(-3,4)
+        t := f.GCD(new Fraction(21,23))
+        Return, this.Check(t,3,92)
+    }
+
+    _LCM()
+    {
+        f := new Fraction(4,-3)
+        t := f.LCM(new Fraction(-2,7))
+        Return, this.Check(t,4,1)
+    }
+
     Check(Value,Numerator,Denominator)
     {
         Return, Value.Numerator = Numerator && Value.Denominator = Denominator

@@ -124,7 +124,7 @@ class Fraction
         Return, this
     }
 
-    GCD(Number1,Number2) ;greatest common denominator
+    IntegerGCD(Number1,Number2) ;greatest common divisor
     {
         While, Number2 != 0
         {
@@ -132,14 +132,14 @@ class Fraction
             Temp1 := Abs(Remainder - Number2)
             Number1 := Number2, Number2 := (Remainder > Temp1) ? Temp1 : Remainder
         }
-        Return, Number1
+        Return, Abs(Number1)
     }
 
     Reduce() ;reduce fraction to simplest form
     {
-        Value := Abs(this.GCD(this.Numerator,this.Denominator))
-        this.Numerator //= Value
-        this.Denominator //= Value
+        GCD := this.IntegerGCD(this.Numerator,this.Denominator)
+        this.Numerator //= GCD
+        this.Denominator //= GCD
         If this.Denominator < 0
         {
             this.Numerator := -this.Numerator
@@ -275,6 +275,24 @@ class Fraction
             this.Denominator := this.Numerator ** Value
             this.Numerator := Numerator
         }
+        Return, this.Reduce()
+    }
+
+    GCD(Value) ;greatest common divisor (GCD(a/b,c/d)=GCD(a*d,b*c)/b*d)
+    {
+        this.CheckFraction(Value)
+        this.Numerator := this.IntegerGCD(this.Numerator * Value.Denominator,Value.Numerator * this.Denominator)
+        this.Denominator := Abs(this.Denominator * Value.Denominator)
+        Return, this.Reduce()
+    }
+
+    LCM(Value) ;least common multiple (LCM(a/b,c/d)=LCM(a*d,b*c)/b*d)
+    {
+        this.CheckFraction(Value)
+        Number1 := this.Numerator * Value.Denominator
+        Number2 := Value.Numerator * this.Denominator
+        this.Numerator := Abs(Number1 * Number2) // this.IntegerGCD(Number1,Number2)
+        this.Denominator := Abs(this.Denominator * Value.Denominator)
         Return, this.Reduce()
     }
 }
